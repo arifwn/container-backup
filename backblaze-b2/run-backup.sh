@@ -84,7 +84,7 @@ for target in $source_dir*/ ; do
     basename=${PWD##*/}
 
     cd $source_dir
-    $tar_command --ignore-failed-read -czf ${backup_dir}/${basename}.tar.gz $basename
+    $tar_command --ignore-failed-read -czf /tmp/${basename}.tar.gz $basename
 
     exitcode=$?
     if [ "$exitcode" != "1" ] && [ "$exitcode" != "0" ]
@@ -93,19 +93,19 @@ for target in $source_dir*/ ; do
         notify_admins "$mail_recipient" "[$system_name] Could not create file: ${basename}.tar.gz" "Could not create file: ${basename}.tar.gz"
         exit 1
     else
-        backup_to_b2 $bucket_name "${backup_dir}/${basename}.tar.gz" "`date +\%Y-\%m-\%d`/${basename}.tar.gz"
+        backup_to_b2 $bucket_name "/tmp/${basename}.tar.gz" "`date +\%Y-\%m-\%d`/${basename}.tar.gz"
     fi
 
     exitcode=$?
     if [ "$exitcode" != "1" ] && [ "$exitcode" != "0" ]
     then
         echo "- Could not upload file" >&2
-        notify_admins "$mail_recipient" "[$system_name] Could not upload file: ${backup_dir}/${basename}.tar.gz" "Could not upload file: ${backup_dir}/${basename}.tar.gz"
+        notify_admins "$mail_recipient" "[$system_name] Could not upload file: /tmp/${basename}.tar.gz" "Could not upload file: /tmp/${basename}.tar.gz"
     else
         uploads_counter=$((uploads_counter + 1))
     fi
 
-    rm "${backup_dir}/${basename}.tar.gz"
+    rm "/tmp/${basename}.tar.gz"
 
     tarballs_counter=$((tarballs_counter + 1))
     echo "+ ${basename}.tar.gz created"
