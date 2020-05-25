@@ -1,5 +1,6 @@
 These containers can be use to schedule periodic offsite backup via kubernetes cron job functionality.
 
+How to use: https://www.sainsmograf.com/blog/2020/05/25/setting-up-automatic-daily-database-backup-on-kubernetes/
 
 Build
 -----
