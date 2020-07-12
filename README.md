@@ -8,6 +8,7 @@ Build
 - `docker build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
 - `docker build -t arifwn/container-backup:b2 ./backblaze-b2`
 - `docker build -t arifwn/container-backup:rsync ./rsync`
+- `docker build -t arifwn/container-backup:clamav ./clamav`
 
 Run
 ---
@@ -33,4 +34,7 @@ Run
     --env B2_ACCOUNT_ID=accountid \
     --env B2_API_KEY=key \
     --env SOURCE_DIR=/source/ arifwn/container-backup:b2`
+
+- ClamAV server
+    `docker run -d -p 3310:3310 arifwn/container-backup:clamav`
 
