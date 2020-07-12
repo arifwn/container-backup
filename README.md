@@ -35,6 +35,8 @@ Run
     --env B2_API_KEY=key \
     --env SOURCE_DIR=/source/ arifwn/container-backup:b2`
 
-- ClamAV server
-    `docker run -d -p 3310:3310 arifwn/container-backup:clamav`
-
+- ClamAV
+    - run server:
+    `docker run -d -p 3310:3310 --volume "/malware-definition-store/:/store/" arifwn/container-backup:clamav`
+    - run scanner:
+    `docker run -it --rm --volume "/source-volume-to-scan/:/source/" --volume "/malware-definition-store/:/store/" --env SYSTEM_NAME=system-name --env MAIL_RECIPIENTS=user@example.com --env MAILGUN_DOMAIN=mg.example.com --env MAILGUN_API_KEY="API-KEY" arifwn/container-backup:clamav /usr/bin/scan.sh`
