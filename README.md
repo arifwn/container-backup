@@ -37,6 +37,6 @@ Run
 
 - ClamAV
     - run server:
-    `docker run -d -p 3310:3310 --volume "/malware-definition-store/:/store/" arifwn/container-backup:clamav`
+    `docker run -d -p 3310:3310 --volume "/malware-definition-store:/var/lib/clamav" arifwn/container-backup:clamav`
     - run scanner:
-    `docker run -it --rm --volume "/source-volume-to-scan/:/source/" --volume "/malware-definition-store/:/store/" --env SYSTEM_NAME=system-name --env MAIL_RECIPIENTS=user@example.com --env MAILGUN_DOMAIN=mg.example.com --env MAILGUN_API_KEY="API-KEY" arifwn/container-backup:clamav /usr/bin/scan.sh`
+    `docker run -it --rm --volume "/source-volume-to-scan/:/source/" --volume "/malware-definition-store:/var/lib/clamav" --env SYSTEM_NAME=system-name --env MAIL_RECIPIENTS=user@example.com --env MAILGUN_DOMAIN=mg.example.com --env MAILGUN_API_KEY="API-KEY" arifwn/container-backup:clamav /usr/bin/scan.sh`

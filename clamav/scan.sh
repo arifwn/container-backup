@@ -27,6 +27,8 @@ notify_admins() {
     fi
 }
 
+echo "starting scan..."
+
 if [ -s "$exclude_dir" ]
 then
     /usr/bin/clamscan -i -r "$scan_dir" --exclude-dir="$exclude_dir" | grep 'FOUND' > "$scan_result"
