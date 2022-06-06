@@ -8,6 +8,7 @@ COPY envconfig.sh /
 COPY check.sh /
 COPY conf/awhitelist.ign2 /var/lib/clamav/awhitelist.ign2
 COPY scan.sh /usr/bin/scan.sh
+COPY remote-scan.sh /usr/bin/remote-scan.sh
 
 RUN mkdir /var/run/clamav && \
     chown clamav:clamav /var/run/clamav && \
