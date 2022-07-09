@@ -1,1 +1,13 @@
 {HEX}Malware.Expert.generic.uploader.2
+{HEX}Malware.Expert.php.post.password.mail.mail.mail.php
+{HEX}Malware.Expert.php.mkdir.chmod.chmod.mkdir.file.put.contents.mkdir.file.put.contents
+{HEX}Malware.Expert.add.join
+PUA.Html.Exploit.CVE_2011_1657-1
+PUA.Html.Exploit.CVE_2014_0322-1
+PUA.Win.Tool.Packed-177
+PUA.Html.Trojan.Agent-37075
+PUA.Pdf.Trojan.OpenActionObjectwithJS-1
+PUA.Pdf.Trojan.EmbeddedJavaScript-1
+PUA.Win.Exploit.CVE_2012_1461-1
+PUA.Win.Packer.PECompact-2
+PUA.Win.Trojan.EmbeddedPDF-1
