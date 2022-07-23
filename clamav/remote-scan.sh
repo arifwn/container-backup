@@ -4,7 +4,7 @@ system_name="$SYSTEM_NAME"
 mail_recipient="$MAIL_RECIPIENTS"
 scan_dir="/source/"
 scan_result="/tmp/scan-result.log"
-exclude_dir="$EXCLUDE_DIR"
+config_file="$CONFIG_FILE"
 
 echo "TCPSocket $REMOTE_PORT
 TCPAddr $REMOTE_ADDRESS" > /tmp/clamd.remote.conf
@@ -32,9 +32,9 @@ notify_admins() {
 
 echo "starting scan..."
 
-if [ -s "$exclude_dir" ]
+if [ -s "$config_file" ]
 then
-    /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i -r "$scan_dir" --exclude-dir="$exclude_dir" | grep 'FOUND' > "$scan_result"
+    /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i -r "$scan_dir" --config-file="$config_file" | grep 'FOUND' > "$scan_result"
 else
     /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i -r "$scan_dir" | grep 'FOUND' > "$scan_result"
 fi
