@@ -34,9 +34,10 @@ echo "starting scan..."
 
 if [ -s "$config_file" ]
 then
-    /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i -r "$scan_dir" --config-file="$config_file" | grep 'FOUND' > "$scan_result"
+    echo "using config file: $config_file"
+    /usr/bin/clamdscan -c $config_file -i "$scan_dir" | grep 'FOUND' > "$scan_result"
 else
-    /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i -r "$scan_dir" | grep 'FOUND' > "$scan_result"
+    /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i "$scan_dir" | grep 'FOUND' > "$scan_result"
 fi
 
 if [ -s "$scan_result" ]
