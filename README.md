@@ -4,7 +4,8 @@ How to use: https://www.sainsmograf.com/blog/2020/05/25/setting-up-automatic-dai
 
 Build
 -----
-- `docker build -t arifwn/container-backup:mysql ./mysql/`
+- `docker buildx build -t arifwn/container-backup:mysql ./mysql/`
+- `docker buildx build -t arifwn/container-backup:mariadb ./mariadb/`
 - `docker build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
 - `docker buildx build -t arifwn/container-backup:postgresql-15 ./postgresql-15/`
 - `docker build -t arifwn/container-backup:b2 ./backblaze-b2`
