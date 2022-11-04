@@ -6,6 +6,7 @@ Build
 -----
 - `docker build -t arifwn/container-backup:mysql ./mysql/`
 - `docker build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
+- `docker buildx build -t arifwn/container-backup:postgresql-15 ./postgresql-15/`
 - `docker build -t arifwn/container-backup:b2 ./backblaze-b2`
 - `docker build -t arifwn/container-backup:rsync ./rsync`
 - `docker build -t arifwn/container-backup:clamav ./clamav`
