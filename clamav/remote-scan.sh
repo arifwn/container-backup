@@ -7,7 +7,11 @@ scan_result="/tmp/scan-result.log"
 config_file="$CONFIG_FILE"
 
 echo "TCPSocket $REMOTE_PORT
-TCPAddr $REMOTE_ADDRESS" > /tmp/clamd.remote.conf
+TCPAddr $REMOTE_ADDRESS
+$ADDITIONAL_CLAMD_CONF_ENTRIES
+" > /tmp/clamd.remote.conf
+
+dos2unix /tmp/clamd.remote.conf
 
 notify_admins() {
     recipients="$1"
