@@ -15,13 +15,13 @@ else
         for db in $databases; do
             if [[ "$db" != "template1" ]] && [[ "$db" != "template0" ]] ; then
                 echo "dumping database $db"
-                /usr/bin/pg_dump -U $USER -h $HOST -p $PORT -Fp $db > $db.sql
+                /usr/bin/pg_dump -U $USER -h $HOST -p $PORT -Fc $db > $db.backup
             fi
         done
         echo "done"
     else
         echo "dumping database $DBNAME"
-        /usr/bin/pg_dump -U $USER -h $HOST -p $PORT -Fp $DBNAME > $DBNAME.sql
+        /usr/bin/pg_dump -U $USER -h $HOST -p $PORT -Fc $DBNAME > $DBNAME.backup
         echo "done"
     fi
 fi
