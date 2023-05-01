@@ -12,8 +12,8 @@ ENV VERSION=1.4.2 \
 RUN pip install b2==${VERSION}
 
 RUN mkdir /source
+WORKDIR /source
+
 COPY docker-entrypoint.sh /usr/local/bin/
-COPY run-backup.sh /usr/local/bin/
-COPY trim-backup-filter.py /usr/local/bin/
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
