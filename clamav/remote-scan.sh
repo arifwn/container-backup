@@ -25,7 +25,7 @@ notify_admins() {
     then
         echo "no mailgun config set! no email notification sent"
     else
-        /usr/bin/curl -v -s --user "api:$MAILGUN_API_KEY" \
+        /usr/bin/curl -s --user "api:$MAILGUN_API_KEY" \
         "https://api.mailgun.net/v3/$MAILGUN_DOMAIN/messages" \
         -F from="malware-scanner+$SYSTEM_NAME@$MAILGUN_DOMAIN" \
         -F to="$recipients" \
@@ -34,14 +34,24 @@ notify_admins() {
     fi
 }
 
+echo "generating files list..."
+if [ -z "$CLAMAV_SCAN_RECENT_FILES" ]
+then
+    echo "including all files"
+    find "$scan_dir" -name "*" -type f > /tmp/file-list.txt
+else
+    echo "including files from the last 7 days"
+    find "$scan_dir" -name "*" -ctime -7 -type f > /tmp/file-list.txt
+fi
+
 echo "starting scan..."
 
 if [ -s "$config_file" ]
 then
     echo "using config file: $config_file"
-    /usr/bin/clamdscan -c $config_file -i "$scan_dir" | grep 'FOUND' > "$scan_result"
+    /usr/bin/clamdscan -c $config_file --file-list=/tmp/file-list.txt | grep 'FOUND' > "$scan_result"
 else
-    /usr/bin/clamdscan -c /tmp/clamd.remote.conf -i "$scan_dir" | grep 'FOUND' > "$scan_result"
+    /usr/bin/clamdscan -c /tmp/clamd.remote.conf --file-list=/tmp/file-list.txt | grep 'FOUND' > "$scan_result"
 fi
 
 if [ -s "$scan_result" ]

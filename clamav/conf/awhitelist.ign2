@@ -11,3 +11,4 @@ PUA.Pdf.Trojan.EmbeddedJavaScript-1
 PUA.Win.Exploit.CVE_2012_1461-1
 PUA.Win.Packer.PECompact-2
 PUA.Win.Trojan.EmbeddedPDF-1
+PUA.Pdf.Exploit.CVE_2013_0624-4255860-2
