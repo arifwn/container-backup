@@ -4,21 +4,23 @@ How to use: https://www.sainsmograf.com/blog/2020/05/25/setting-up-automatic-dai
 
 Build
 -----
-- `docker buildx build -t arifwn/container-backup:mysql ./mysql/`
+- `docker buildx build -t arifwn/container-backup:mysql80 ./mysql-8.0/`
 - `docker buildx build -t arifwn/container-backup:mariadb ./mariadb/`
-- `docker build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
+- `docker buildx build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
+- `docker buildx build -t arifwn/container-backup:postgresql-11 ./postgresql-11/`
 - `docker buildx build -t arifwn/container-backup:postgresql-15 ./postgresql-15/`
-- `docker build -t arifwn/container-backup:b2 ./backblaze-b2`
-- `docker build -t arifwn/container-backup:rsync ./rsync`
-- `docker build -t arifwn/container-backup:clamav ./clamav`
+- `docker buildx build -t arifwn/container-backup:b2 ./backblaze-b2`
+- `docker buildx build -t arifwn/container-backup:b2-single ./backblaze-b2-single`
+- `docker buildx build -t arifwn/container-backup:rsync ./rsync`
+- `docker buildx build -t arifwn/container-backup:clamav ./clamav`
 
 Run
 ---
 - Periodically dump a MySQL database into a volume:
-    `docker run --rm --tty --interactive --volume "/volume-dir/:/dump/" --env HOST=host --env PORT=3306 --env DBNAME=dbname --env USER=root --env PASSWORD=password arifwn/container-backup:mysql`
+    `docker run --rm --tty --interactive --volume "/volume-dir/:/dump/" --env HOST=host --env PORT=3306 --env DBNAME=dbname --env USER=root --env PASSWORD=password arifwn/container-backup:mysql80`
 
 - Periodically dump ALL MySQL database into a volume:
-    `docker run --rm --tty --interactive --volume "/volume-dir/:/dump/" --env HOST=host --env PORT=3306 --env DBNAME=ALL --env USER=root --env PASSWORD=password arifwn/container-backup:mysql`
+    `docker run --rm --tty --interactive --volume "/volume-dir/:/dump/" --env HOST=host --env PORT=3306 --env DBNAME=ALL --env USER=root --env PASSWORD=password arifwn/container-backup:mysql80`
 
 - Periodically dump a Postgresql database into a volume:
     `docker run --rm --tty --interactive --volume "/volume-dir/:/dump/" --env HOST=host --env PORT=5432 --env DBNAME=dbname --env USER=root --env PASSWORD=password arifwn/container-backup:postgresql-12`
