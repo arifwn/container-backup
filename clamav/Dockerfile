@@ -1,4 +1,4 @@
-FROM alpine:20220316
+FROM alpine:3.19
 
 RUN apk add --no-cache bash clamav clamav-libunrar curl
 

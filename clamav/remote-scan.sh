@@ -49,9 +49,9 @@ echo "starting scan..."
 if [ -s "$config_file" ]
 then
     echo "using config file: $config_file"
-    /usr/bin/clamdscan -c $config_file --file-list=/tmp/file-list.txt | grep 'FOUND' > "$scan_result"
+    /usr/bin/clamdscan --infected -c $config_file --file-list=/tmp/file-list.txt | grep 'FOUND' > "$scan_result"
 else
-    /usr/bin/clamdscan -c /tmp/clamd.remote.conf --file-list=/tmp/file-list.txt | grep 'FOUND' > "$scan_result"
+    /usr/bin/clamdscan --infected -c /tmp/clamd.remote.conf --file-list=/tmp/file-list.txt | grep 'FOUND' > "$scan_result"
 fi
 
 if [ -s "$scan_result" ]
