@@ -12,6 +12,14 @@ else
             if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != "sys" ]] && [[ "$db" != "Database" ]] ; then
                     echo "running mysqldump --max_allowed_packet=1073741824 --routines --host $HOST --port $PORT -u$USER -p$PASSWORD $db > $db.sql"
                     mysqldump --max_allowed_packet=1073741824 --routines --host $HOST --port $PORT -u$USER -p$PASSWORD $db | gzip -c > $db.sql.gz
+
+                    if [ -z "$SLEEP_DELAY" ]
+                    then
+                        echo ""
+                    else
+                        echo "Sleeping for $SLEEP_DELAY seconds"
+                        sleep "$SLEEP_DELAY"
+                    fi
             fi
         done
 

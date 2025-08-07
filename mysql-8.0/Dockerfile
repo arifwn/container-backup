@@ -17,7 +17,7 @@ RUN set -eux \
 RUN set -eux \
     && DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --no-install-recommends --no-install-suggests \
-        gnupg \
+    gnupg \
     && rm -rf /var/lib/apt/lists/* \
     && true
 
@@ -29,8 +29,8 @@ RUN set -eux \
     && savedAptMark="$(apt-mark showmanual)" \
     && DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --no-install-recommends \
-        ca-certificates \
-        wget \
+    ca-certificates \
+    wget \
     && rm -rf /var/lib/apt/lists/* \
     && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
@@ -51,16 +51,16 @@ RUN set -eux \
 RUN set -eux \
     && DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --no-install-recommends \
-        openssl \
-        bash \
-        perl \
-        xz-utils \
-        zstd \
+    openssl \
+    bash \
+    perl \
+    xz-utils \
+    zstd \
     && rm -rf /var/lib/apt/lists/* \
     && true
 
 RUN set -eux \
-# gpg: key 3A79BD29: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
+    # gpg: key 3A79BD29: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
     && key='B7B3B788A8D3785C' \
     && export GNUPGHOME="$(mktemp -d)" \
     && gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys "$key" \
@@ -71,9 +71,9 @@ RUN set -eux \
     && true
 
 ENV MYSQL_MAJOR 8.0
-ENV MYSQL_VERSION 8.0.35-1debian11
+ENV MYSQL_VERSION 8.0.37-1debian11
 
-# https://repo.mysql.com/apt/debian/pool/mysql-8.0/m/mysql-community/mysql-client_8.0.35-1debian11_amd64.deb
+# https://repo.mysql.com/apt/debian/pool/mysql-8.0/m/mysql-community/mysql-client_8.0.37-1debian11_amd64.deb
 RUN set -eux \
     && echo 'deb [ signed-by=/etc/apt/keyrings/mysql.gpg ] http://repo.mysql.com/apt/debian/ bullseye mysql-8.0' > /etc/apt/sources.list.d/mysql.list \
     && true
@@ -83,12 +83,12 @@ RUN set -eux \
 RUN set -eux \
     && DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --no-install-recommends \
-        mysql-community-client="${MYSQL_VERSION}" \
+    mysql-community-client="${MYSQL_VERSION}" \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/lib/mysql \
     && mkdir -p /var/lib/mysql \
     && chown -R mysql:mysql /var/lib/mysql \
-# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+    # ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
     && chmod 1777 /var/lib/mysql \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
@@ -100,12 +100,12 @@ ARG ENVE_VERSION=1.4.1
 RUN set -eux \
     && DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --no-install-recommends \
-        ca-certificates \
-        wget \
+    ca-certificates \
+    wget \
     && rm -rf /var/lib/apt/lists/* \
     && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && wget -O /tmp/enve.tar.gz \
-        "https://github.com/joseluisq/enve/releases/download/v${ENVE_VERSION}/enve_v${ENVE_VERSION}_linux_$dpkgArch.tar.gz" \
+    "https://github.com/joseluisq/enve/releases/download/v${ENVE_VERSION}/enve_v${ENVE_VERSION}_linux_$dpkgArch.tar.gz" \
     && tar xzvf /tmp/enve.tar.gz -C /usr/local/bin enve \
     && enve -v \
     && rm -rf /tmp/enve.tar.gz \
