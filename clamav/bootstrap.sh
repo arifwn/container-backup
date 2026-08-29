@@ -11,7 +11,12 @@ if ! [ -z $HTTPProxyPort   ]; then echo "HTTPProxyPort $HTTPProxyPort" >> /etc/c
 
 DB_DIR=$(sed -n 's/^DatabaseDirectory\s\(.*\)\s*$/\1/p' /etc/clamav/freshclam.conf )
 DB_DIR=${DB_DIR:-'/var/lib/clamav'}
-MAIN_FILE="$DB_DIR/main.cvd"
+# freshclam downloads the main database as main.cvd, then converts it to
+# main.cld once ScriptedUpdates applies the first incremental update.
+# Waiting on main.cvd alone hangs forever on an already-populated volume.
+function db_ready () {
+    [[ -e "$DB_DIR/main.cvd" || -e "$DB_DIR/main.cld" ]]
+}
 
 function clam_start () {
     if [[ ! -e /var/run/clamav/created ]]
@@ -20,9 +25,9 @@ function clam_start () {
     fi
     freshclam -d &
     echo -e "waiting for clam to update..."
-    until [[ -e ${MAIN_FILE} ]]
+    until db_ready
     do
-        :
+        sleep 5
     done
     echo -e "starting clamd..."
     clamd &

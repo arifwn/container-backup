@@ -6,13 +6,19 @@ Build
 -----
 - `docker buildx build -t arifwn/container-backup:mysql80 ./mysql-8.0/`
 - `docker buildx build -t arifwn/container-backup:mariadb ./mariadb/`
-- `docker buildx build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
 - `docker buildx build -t arifwn/container-backup:postgresql-11 ./postgresql-11/`
+- `docker buildx build -t arifwn/container-backup:postgresql-12 ./postgresql-12/`
+- `docker buildx build -t arifwn/container-backup:postgresql-14 ./postgresql-14/`
 - `docker buildx build -t arifwn/container-backup:postgresql-15 ./postgresql-15/`
+- `docker buildx build -t arifwn/container-backup:postgresql-16 ./postgresql-16/`
 - `docker buildx build -t arifwn/container-backup:b2 ./backblaze-b2`
 - `docker buildx build -t arifwn/container-backup:b2-single ./backblaze-b2-single`
 - `docker buildx build -t arifwn/container-backup:rsync ./rsync`
 - `docker buildx build -t arifwn/container-backup:clamav ./clamav`
+
+Note: `buildx` defaults to `--output=type=cacheonly` on a `docker-container` builder, so a
+plain `buildx build -t ...` leaves nothing in the local image store and a follow-up
+`docker push` would push a stale image. Add `--push` (or `--load`) to the build itself.
 
 Run
 ---
